@@ -27,9 +27,8 @@ async def upload_data(project_id : str ,file : UploadFile,
                                              "signal" : result_signal
                                      })
         
-        project_dir_path = ProjectController().get_project_path(project_id = project_id)
-        file_path = DataController().generate_unique_filename(original_filename = file.filename , project_id = project_id)
-
+        file_path , file_id = DataController().generate_unique_filepath(orig_file_name = file.filename , project_id = project_id)
+        logger.info(f"File Path : {file_path} "+"\n" +file_id)
         try:
             async with aiofiles.open(file_path, "wb") as f:
                 while chunk := await file.read(app_settings.FILE_DEFAULT_CHUNK_SIZE):
@@ -39,15 +38,14 @@ async def upload_data(project_id : str ,file : UploadFile,
             logger.error(f"Error While uploading file : {e}")
             return JSONResponse(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                                 content={
-                                        "signal" : ResponseSignal.FILE_UPLOAD_FAILED.value
+                                        "signal" : ResponseSignal.FILE_UPLOAD_FAILED.value,
+                                        
                                 })
         
-        finally:
-            if os.path.exists(file_path):
-                os.remove(file_path)
 
         return JSONResponse(status_code=status.HTTP_200_OK,
                             content={
-                                    "signal" : ResponseSignal.FILE_UPLOAD_SUCCESS.value
+                                    "signal" : ResponseSignal.FILE_UPLOAD_SUCCESS.value,
+                                    "file_id": file_id
                             })
 

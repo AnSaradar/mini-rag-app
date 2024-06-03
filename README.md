@@ -18,12 +18,6 @@ $ conda create -n mini-rag python=3.8
 $ conda activate mini-rag
 ```
 
-### (Optional) Setup you command line interface for better readability
-
-```bash
-export PS1="\[\033[01;32m\]\u@\h:\w\n\[\033[00m\]\$ "
-```
-
 ## Installation
 
 ### Install the required packages
@@ -43,9 +37,6 @@ Set your environment variables in the `.env` file. Like `OPENAI_API_KEY` value.
 ## Run the FastAPI server
 
 ```bash
-$ uvicorn main:app --reload --host 0.0.0.0 --port 5000
+$ uvicorn main:app --reload 
 ```
 
-## POSTMAN Collection
-
-Download the POSTMAN collection from [/assets/mini-rag-app.postman_collection.json](/assets/mini-rag-app.postman_collection.json)

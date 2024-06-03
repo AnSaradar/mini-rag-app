@@ -1,6 +1,6 @@
-# mini-rag
+# Customizable Chat Bot
 
-This is a minimal implementation of the RAG model for question answering.
+Build a project to chat with your own documents (PDF files / Text Files),using RAG to build the QA Chat Bot.
 
 ## Requirements
 

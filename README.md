@@ -29,10 +29,21 @@ $ pip install -r requirements.txt
 ### Setup the environment variables
 
 ```bash
+$ cd src
+
 $ cp .env.example .env
 ```
 
 Set your environment variables in the `.env` file. Like `OPENAI_API_KEY` value.
+
+### Docker
+
+```bash
+$ cd docker
+
+$ cp .env.example .env
+```
+
 
 ## Run the FastAPI server
 

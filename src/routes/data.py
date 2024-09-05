@@ -24,7 +24,7 @@ async def upload_data(request : Request ,project_id : str ,file : UploadFile,
                        app_settings : Settings = Depends(get_settings)):
         
 
-        project_model = ProjectModel(
+        project_model = await ProjectModel.create_instance(
               db_client=request.app.db_client
         )
 
@@ -73,7 +73,7 @@ async def process_data(request : Request ,project_id : str ,process_request : Pr
 
         
 
-        project_model = ProjectModel(
+        project_model = await ProjectModel.create_instance(
               db_client=request.app.db_client
         )
 
@@ -102,7 +102,7 @@ async def process_data(request : Request ,project_id : str ,process_request : Pr
         ]
 
         
-        chunck_model = DataChunckModel(
+        chunck_model = await DataChunckModel.create_instance(
                 db_client=request.app.db_client
         )
 

@@ -14,3 +14,12 @@ class Project(BaseModel):
     #To make the pydantic libraries ignore any errors caused by unknown fields
     class Config:
         arbitrary_types_allowed = True
+    
+    @classmethod
+    def get_indexes(cls):
+
+        return [{
+            "key": [("project_id",1)], ## 1 for Ascending order & -1 for descending order
+            "name": "project_id_index_1",
+            "unique": True, ## Redundant values are not accepted
+        }]

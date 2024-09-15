@@ -8,6 +8,7 @@ class DataChunk(BaseModel):
     chunk_metadata: dict
     chunk_order: int = Field(..., gt=0)
     chunk_project_id: ObjectId #To mark each chunck belongs to a project
+    chunk_asset_id: ObjectId
 
     #To make the pydantic libraries ignore any errors caused by unknown fields
     class Config:

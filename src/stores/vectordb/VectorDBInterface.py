@@ -1,5 +1,6 @@
 from abc import ABC , abstractmethod
-
+from models.db_schmes import RetrievedDocument
+from typing import List
 class VectorDBInterface(ABC):
 
     @abstractmethod
@@ -15,7 +16,7 @@ class VectorDBInterface(ABC):
         pass
 
     @abstractmethod
-    def list_all_collections(self) -> list:
+    def list_all_collections(self) -> List:
         pass
 
     @abstractmethod
@@ -46,5 +47,5 @@ class VectorDBInterface(ABC):
         pass
 
     @abstractmethod
-    def search_by_vector(self, collection_name: str, vector: list, limit: int): # limit: the max number of results to return
+    def search_by_vector(self, collection_name: str, vector: list, limit: int)-> List[RetrievedDocument]: # limit: the max number of results to return
         pass

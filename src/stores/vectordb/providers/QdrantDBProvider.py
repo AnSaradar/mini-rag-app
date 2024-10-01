@@ -2,6 +2,7 @@ from ..VectorDBInterface import VectorDBInterface
 from ..VectorDBEnums import DistanceMethodEnums
 from qdrant_client import QdrantClient, models
 import logging
+from typing import List
 
 class QdrantDBProvider(VectorDBInterface):
     def __init__(self, db_path: str, distance_method: str):
@@ -26,9 +27,9 @@ class QdrantDBProvider(VectorDBInterface):
         self.client = None
 
     def is_collection_existed(self, collection_name: str) -> bool:
-        return self.client.collection_exist(collection_name = collection_name)
+        return self.client.collection_exists(collection_name = collection_name)
 
-    def list_all_collections(self) -> list:
+    def list_all_collections(self) -> List:
         return self.client.get_collections()    
 
     def get_collection_info(self, collection_name: str) -> dict:
@@ -66,6 +67,7 @@ class QdrantDBProvider(VectorDBInterface):
                 collection_name = collection_name,
                 records = [
                     models.Record(
+                        id = [record_id],
                         vectors = vectors,
                         payload = {
                             "text": text,
@@ -99,9 +101,12 @@ class QdrantDBProvider(VectorDBInterface):
             batch_texts = texts[i:batch_end]
             batch_vectors = vectors[i:batch_end]
             batch_metadata = metadata[i:batch_end]
+            batch_record_ids = record_ids[i:batch_end]
+
             
             batch_records = [
                 models.Record(
+                    id = batch_record_ids[x],
                     vectors = batch_vectors[x],
                     payload = {
                         "text": batch_texts[x],
@@ -123,7 +128,7 @@ class QdrantDBProvider(VectorDBInterface):
     def search_by_vector(self, collection_name: str, vector: list, limit: int):
         return self.client.search(
             collection_name = collection_name,
-            vector = vector,
+            query_vector = vector,
             limit = limit,
             
         )
